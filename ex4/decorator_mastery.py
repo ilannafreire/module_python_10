@@ -41,6 +41,11 @@ def power_validator(
     return decorator
 
 
+@power_validator(10)
+def standalone_spell(spell_name: str, power: int) -> str:
+    return f"Successfully cast {spell_name} with {power} power"
+
+
 def retry_spell(
     max_attempts: int,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -106,6 +111,10 @@ if __name__ == "__main__":
 
     print("Testing retrying spell...")
     print(make_flaky_spell()())
+
+    print("Testing standalone power validator...")
+    print(standalone_spell("Lightning", 15))
+    print(standalone_spell("Spark", 7))
 
     guild = MageGuild()
     print("Testing MageGuild...")
